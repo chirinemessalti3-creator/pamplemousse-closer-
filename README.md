@@ -58,3 +58,19 @@ npm run dev
 | Fiches individuelles | Vue détaillée par prospect |
 | Export CSV | Toutes les données en un clic |
 | Recherche & filtres | Par prospect, closer, maturité |
+
+---
+
+## 💗 Version papier (PDF)
+
+Une version imprimable de la fiche d'appel, sur fond romantique à motif cœurs :
+
+- **PDF prêt à imprimer** : `docs/fiche-appel-amour.pdf` (A4, 5 pages)
+- **Source** : `docs/fiche-appel-amour.html`
+
+Pour le régénérer après modification du HTML (Chrome/Chromium requis) :
+
+```bash
+chromium --headless --no-pdf-header-footer \
+  --print-to-pdf=docs/fiche-appel-amour.pdf docs/fiche-appel-amour.html
+```

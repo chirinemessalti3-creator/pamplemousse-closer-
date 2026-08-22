@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Fiche d'appel — La Méthode Pamplemousse</title>
+<style>
+  @page { size: A4; margin: 0; }
+
+  :root {
+    --rose:        #E0567A;
+    --rose-clair:  #F7A8BC;
+    --rose-pale:   #FFEAF0;
+    --pamplemousse:#E8613A;
+    --encre:       #46232F;
+    --encre-doux:  #8A6470;
+    --ligne:       #EBC7D2;
+    --creme:       #FFF8F4;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "DejaVu Sans", "Liberation Sans", sans-serif;
+    color: var(--encre);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Le fond d'amour : tuile de cœurs répétée sur chaque page ── */
+  .page {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    padding: 13mm 14mm 12mm;
+    overflow: hidden;
+    page-break-after: always;
+    background-color: #FFF4F7;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'><g fill='none' stroke='%23E0567A' stroke-opacity='0.16' stroke-width='1.6'><path transform='translate(14,10) scale(0.95)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/><path transform='translate(86,46) scale(1.5) rotate(18)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/><path transform='translate(30,92) scale(1.15) rotate(-14)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/><path transform='translate(112,116) scale(0.8) rotate(10)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/></g><g fill='%23E0567A' fill-opacity='0.07'><path transform='translate(64,4) scale(0.7)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/><path transform='translate(2,54) scale(0.6)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/><path transform='translate(74,126) scale(0.65)' d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z'/></g></svg>");
+    background-size: 38mm 38mm;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* voile crème pour garder le texte lisible par-dessus les cœurs */
+  .page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 85% at 50% 0%, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.62) 45%, rgba(255,244,247,0.30) 100%);
+  }
+  .page > * { position: relative; }
+
+  /* ── Bandeau de page ── */
+  .bandeau {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1.5px solid var(--ligne);
+    padding-bottom: 3mm;
+    margin-bottom: 6mm;
+  }
+  .bandeau .marque {
+    font-family: "Bitstream Charter", "DejaVu Serif", serif;
+    font-size: 11pt;
+    letter-spacing: .02em;
+  }
+  .bandeau .marque span { color: var(--rose); }
+  .bandeau .sous { font-size: 7.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--encre-doux); }
+
+  .pied {
+    position: absolute;
+    left: 14mm; right: 14mm; bottom: 7mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7pt;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--encre-doux);
+    border-top: 1px solid var(--ligne);
+    padding-top: 2.5mm;
+  }
+
+  /* ── Couverture ── */
+  .couverture { display: flex; flex-direction: column; height: 100%; text-align: center; }
+  .couv-haut { padding-top: 26mm; }
+  .couv-orne { font-size: 20pt; letter-spacing: .5em; color: var(--rose-clair); margin-bottom: 8mm; }
+  .couv-sur {
+    font-size: 8.5pt; letter-spacing: .34em; text-transform: uppercase;
+    color: var(--pamplemousse); font-weight: 700; margin-bottom: 6mm;
+  }
+  .couv-titre {
+    font-family: "Bitstream Charter", "DejaVu Serif", serif;
+    font-size: 40pt; line-height: 1.05; margin: 0 0 4mm;
+  }
+  .couv-titre em { font-style: italic; color: var(--rose); }
+  .couv-trait { width: 46mm; height: 2px; background: linear-gradient(90deg, transparent, var(--rose), transparent); margin: 6mm auto 7mm; }
+  .couv-phrase {
+    font-family: "Bitstream Charter", "DejaVu Serif", serif;
+    font-style: italic; font-size: 13pt; line-height: 1.6;
+    color: var(--encre-doux); max-width: 118mm; margin: 0 auto;
+  }
+
+  .carte-couv {
+    margin: 14mm auto 0;
+    width: 132mm;
+    background: rgba(255,255,255,0.90);
+    border: 1.5px solid var(--ligne);
+    border-radius: 6mm;
+    padding: 8mm 9mm;
+    text-align: left;
+    box-shadow: 0 2mm 6mm rgba(224,86,122,0.10);
+  }
+  .carte-couv .titre-carte {
+    font-size: 8pt; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--rose); font-weight: 700; margin-bottom: 6mm; text-align: center;
+  }
+  .duo { display: flex; gap: 8mm; }
+  .duo > * { flex: 1; }
+
+  .couv-bas { margin-top: auto; padding-bottom: 4mm; font-size: 8pt; letter-spacing: .2em; text-transform: uppercase; color: var(--encre-doux); }
+
+  /* ── Sections ── */
+  .section {
+    background: rgba(255,255,255,0.88);
+    border: 1px solid var(--ligne);
+    border-radius: 4mm;
+    padding: 5.5mm 6mm 6mm;
+    margin-bottom: 6mm;
+  }
+  .section.finale { border-color: var(--rose); border-width: 1.5px; background: rgba(255,255,255,0.93); }
+
+  .titre-section {
+    display: flex; align-items: center; gap: 3mm;
+    margin: 0 0 4mm;
+    padding-bottom: 2.5mm;
+    border-bottom: 1px dashed var(--ligne);
+  }
+  .puce {
+    flex: none;
+    width: 8mm; height: 8mm;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 9pt; font-weight: 700;
+    background: var(--rose);
+    border-radius: 50%;
+  }
+  .section.finale .puce { background: var(--pamplemousse); }
+  .titre-section h2 {
+    font-family: "Bitstream Charter", "DejaVu Serif", serif;
+    font-size: 15pt; margin: 0; font-weight: 700;
+  }
+  .titre-section .mention { margin-left: auto; font-size: 7pt; letter-spacing: .16em; text-transform: uppercase; color: var(--encre-doux); }
+
+  .q { margin-bottom: 4.4mm; }
+  .q:last-child { margin-bottom: 0; }
+  .q > label, .etiquette {
+    display: block;
+    font-size: 8.6pt;
+    font-weight: 700;
+    margin-bottom: 1.6mm;
+    color: var(--encre);
+  }
+  .aide { font-weight: 400; font-size: 7.5pt; font-style: italic; color: var(--encre-doux); }
+
+  /* lignes d'écriture */
+  .lignes { border-bottom: 1px dotted var(--ligne); height: 6.6mm; }
+  .lignes + .lignes { margin-top: 0; }
+  .champ { border-bottom: 1px dotted var(--ligne); height: 6.6mm; }
+
+  /* cases à cocher en forme de cœur */
+  .choix { display: flex; flex-wrap: wrap; gap: 2mm 5mm; padding-top: .5mm; }
+  .choix span { display: flex; align-items: center; gap: 1.6mm; font-size: 8.4pt; }
+  .coeur {
+    flex: none; width: 3.6mm; height: 3.6mm;
+    background: no-repeat center/contain
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'><path d='M12 20.5C12 20.5 2.5 14.6 2.5 8.4 2.5 5.4 4.8 3.2 7.6 3.2 9.4 3.2 11.1 4.2 12 5.7 12.9 4.2 14.6 3.2 16.4 3.2 19.2 3.2 21.5 5.4 21.5 8.4 21.5 14.6 12 20.5 12 20.5Z' fill='none' stroke='%23E0567A' stroke-width='2'/></svg>");
+  }
+
+  /* échelle 1 → 10 */
+  .echelle { display: flex; gap: 2mm; margin-top: 1mm; }
+  .echelle i {
+    flex: 1;
+    height: 7mm;
+    border: 1px solid var(--ligne);
+    border-radius: 1.5mm;
+    background: rgba(255,255,255,0.7);
+    font-style: normal;
+    font-size: 8pt;
+    color: var(--encre-doux);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .echelle-legende { display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--encre-doux); margin-top: 1.2mm; }
+
+  /* maturité */
+  .maturite { display: flex; gap: 4mm; }
+  .maturite div {
+    flex: 1; text-align: center;
+    border: 1.2px solid var(--ligne);
+    border-radius: 2.5mm;
+    padding: 3mm 0;
+    font-size: 9pt; font-weight: 700;
+    background: rgba(255,255,255,0.75);
+  }
+
+  .encadre-fup {
+    margin-top: 4mm;
+    border: 1.2px solid var(--rose-clair);
+    border-radius: 3mm;
+    background: var(--rose-pale);
+    padding: 4mm 5mm;
+  }
+  .encadre-fup .titre-carte {
+    font-size: 7.5pt; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--rose); font-weight: 700; margin-bottom: 3mm;
+  }
+
+  .note-fin {
+    margin-top: 4mm;
+    text-align: center;
+    font-family: "Bitstream Charter", "DejaVu Serif", serif;
+    font-style: italic;
+    font-size: 10pt;
+    color: var(--encre-doux);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ PAGE 1 — COUVERTURE ══════════ -->
+<section class="page">
+  <div class="couverture">
+    <div class="couv-haut">
+      <div class="couv-orne">♥ ♥ ♥</div>
+      <div class="couv-sur">🍊 La Méthode Pamplemousse</div>
+      <h1 class="couv-titre">Fiche d'<em>appel</em></h1>
+      <div class="couv-trait"></div>
+      <p class="couv-phrase">
+        Écouter avec le cœur, noter mot pour mot.<br />
+        Derrière chaque appel, il y a une vie qu'on aide à changer.
+      </p>
+    </div>
+
+    <div class="carte-couv">
+      <div class="titre-carte">♥ Cet appel ♥</div>
+      <div class="duo">
+        <div class="q"><label>Prénom du prospect</label><div class="champ"></div></div>
+        <div class="q"><label>Date de l'appel</label><div class="champ"></div></div>
+      </div>
+      <div class="duo">
+        <div class="q"><label>Closer</label><div class="champ"></div></div>
+        <div class="q"><label>Durée</label><div class="champ"></div></div>
+      </div>
+    </div>
+
+    <div class="couv-bas">6 sections · 30 questions · Usage interne</div>
+  </div>
+</section>
+
+<!-- ══════════ PAGE 2 — SECTIONS 1 & 2 ══════════ -->
+<section class="page">
+  <div class="bandeau">
+    <div class="marque">🍊 La Méthode <span>Pamplemousse</span></div>
+    <div class="sous">Fiche d'appel</div>
+  </div>
+
+  <div class="section">
+    <div class="titre-section"><div class="puce">1</div><h2>Profil du prospect</h2></div>
+
+    <div class="duo">
+      <div class="q"><label>Prénom du prospect</label><div class="champ"></div></div>
+      <div class="q"><label>Âge</label><div class="champ"></div></div>
+    </div>
+
+    <div class="q">
+      <label>Situation familiale</label>
+      <div class="choix">
+        <span><i class="coeur"></i>Célibataire</span>
+        <span><i class="coeur"></i>En couple</span>
+        <span><i class="coeur"></i>Avec enfants</span>
+        <span><i class="coeur"></i>Couple + enfants</span>
+      </div>
+    </div>
+
+    <div class="duo">
+      <div class="q"><label>Métier actuel</label><div class="champ"></div></div>
+      <div class="q"><label>Ancienneté dans ce poste</label><div class="champ"></div></div>
+    </div>
+
+    <div class="q">
+      <label>Statut professionnel</label>
+      <div class="choix">
+        <span><i class="coeur"></i>Salarié CDI</span>
+        <span><i class="coeur"></i>CDD</span>
+        <span><i class="coeur"></i>Indépendant</span>
+        <span><i class="coeur"></i>Demandeur d'emploi</span>
+      </div>
+    </div>
+
+    <div class="q"><label>Revenus mensuels nets approximatifs</label><div class="champ"></div></div>
+
+    <div class="q">
+      <label>A déjà fait un bilan de compétences ?</label>
+      <div class="choix">
+        <span><i class="coeur"></i>Oui</span>
+        <span><i class="coeur"></i>Non</span>
+        <span><i class="coeur"></i>En cours</span>
+      </div>
+    </div>
+
+    <div class="q"><label>Depuis combien de temps pense-t-il/elle à changer ?</label><div class="champ"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="titre-section"><div class="puce">2</div><h2>Déclencheur</h2></div>
+
+    <div class="q">
+      <label>Qu'est-ce qui l'a amené(e) à prendre RDV aujourd'hui ? <span class="aide">— mot pour mot</span></label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>A une idée de reconversion en tête ?</label>
+      <div class="choix">
+        <span><i class="coeur"></i>✅ Oui, précise</span>
+        <span><i class="coeur"></i>🌫️ Vague</span>
+        <span><i class="coeur"></i>❓ Flou total</span>
+      </div>
+    </div>
+
+    <div class="q">
+      <label>Niveau de souffrance au travail</label>
+      <div class="echelle"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i></div>
+      <div class="echelle-legende"><span>😊 Ça va</span><span>😤 En souffrance</span><span>🔥 Insupportable</span></div>
+    </div>
+
+    <div class="q">
+      <label>En a parlé à son entourage ? Quelle réaction ? <span class="aide">— conjoint, famille, amis</span></label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+  </div>
+
+  <div class="pied"><span>♥ Fiche d'appel</span><span>Page 2 / 5</span></div>
+</section>
+
+<!-- ══════════ PAGE 3 — SECTIONS 3 & 4 ══════════ -->
+<section class="page">
+  <div class="bandeau">
+    <div class="marque">🍊 La Méthode <span>Pamplemousse</span></div>
+    <div class="sous">Fiche d'appel</div>
+  </div>
+
+  <div class="section">
+    <div class="titre-section"><div class="puce">3</div><h2>Freins</h2></div>
+
+    <div class="q">
+      <label>Qu'est-ce qui l'empêche de commencer maintenant ? <span class="aide">— objection principale, mot pour mot</span></label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Quand il/elle dit « dans 3/6 mois, dans 1 an » — il attend quoi exactement ?</label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Frein principal identifié</label>
+      <div class="choix">
+        <span><i class="coeur"></i>💰 Financier</span>
+        <span><i class="coeur"></i>😨 Peur de l'échec</span>
+        <span><i class="coeur"></i>⏰ Manque de temps</span>
+        <span><i class="coeur"></i>👥 Conjoint pas d'accord</span>
+        <span><i class="coeur"></i>❓ Autre</span>
+      </div>
+    </div>
+
+    <div class="q">
+      <label>Si financier : CPF disponible ? Accès crédit ? Épargne ?</label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Quelqu'un influence sa décision ? Qui ? <span class="aide">— et quelle est sa position ?</span></label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="titre-section"><div class="puce">4</div><h2>Projection</h2></div>
+
+    <div class="q">
+      <label>Où se voit-il/elle dans 1 an si rien ne change ?</label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Émotion dominante si même job dans 2 ans ? <span class="aide">— le mot exact</span></label>
+      <div class="champ"></div>
+    </div>
+
+    <div class="q">
+      <label>Date de vie importante à venir ? <span class="aide">— anniversaire, fin de contrat, autre</span></label>
+      <div class="champ"></div>
+    </div>
+
+    <div class="q">
+      <label>Ce qui se passe si la reconversion réussit ?</label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+  </div>
+
+  <div class="pied"><span>♥ Fiche d'appel</span><span>Page 3 / 5</span></div>
+</section>
+
+<!-- ══════════ PAGE 4 — SECTION 5 ══════════ -->
+<section class="page">
+  <div class="bandeau">
+    <div class="marque">🍊 La Méthode <span>Pamplemousse</span></div>
+    <div class="sous">Fiche d'appel</div>
+  </div>
+
+  <div class="section">
+    <div class="titre-section"><div class="puce">5</div><h2>Relation à l'offre</h2></div>
+
+    <div class="q">
+      <label>Partie de la méthode qui l'a le plus accroché(e) <span class="aide">— ce qui a résonné</span></label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Partie qui l'a fait hésiter <span class="aide">— flou, risqué, peu adapté</span></label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>A comparé avec d'autres offres ? Lesquelles ?</label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Prix qu'il/elle avait en tête avant l'annonce</label>
+      <div class="champ"></div>
+    </div>
+
+    <div class="q">
+      <label>Réaction exacte au prix <span class="aide">— mot pour mot</span></label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="titre-section"><div class="puce">♥</div><h2>Ressenti de l'appel</h2><span class="mention">Libre</span></div>
+    <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+  </div>
+
+  <div class="pied"><span>♥ Fiche d'appel</span><span>Page 4 / 5</span></div>
+</section>
+
+<!-- ══════════ PAGE 5 — SECTION 6 ══════════ -->
+<section class="page">
+  <div class="bandeau">
+    <div class="marque">🍊 La Méthode <span>Pamplemousse</span></div>
+    <div class="sous">Fiche d'appel</div>
+  </div>
+
+  <div class="section finale">
+    <div class="titre-section"><div class="puce">6</div><h2>Diagnostic Closer</h2><span class="mention">Usage interne</span></div>
+
+    <div class="q">
+      <label>Quel est le vrai frein selon toi ? <span class="aide">— ton analyse, au-delà de ce qu'il/elle a dit</span></label>
+      <div class="lignes"></div><div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Niveau de maturité du prospect</label>
+      <div class="maturite">
+        <div>Chaud 🔥</div>
+        <div>Tiède 🌤️</div>
+        <div>Froid ❄️</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <label>Élément de vie qui pourrait créer une urgence naturelle ?</label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Qu'est-ce qui lui manque pour signer aujourd'hui ?</label>
+      <div class="lignes"></div><div class="lignes"></div>
+    </div>
+
+    <div class="q">
+      <label>Qui es-tu ? (closer)</label>
+      <div class="choix">
+        <span><i class="coeur"></i>Marie</span>
+        <span><i class="coeur"></i>Sophie</span>
+        <span><i class="coeur"></i>Laetitia</span>
+        <span><i class="coeur"></i>Evelyne</span>
+        <span><i class="coeur"></i>Isabelle G</span>
+        <span><i class="coeur"></i>Isa</span>
+        <span><i class="coeur"></i>Chirine</span>
+        <span><i class="coeur"></i>Mohammed</span>
+        <span><i class="coeur"></i>Oumaya</span>
+      </div>
+    </div>
+
+    <div class="q">
+      <label>Prochaine action convenue <span class="aide">— rappel jeudi 14h, envoi devis…</span></label>
+      <div class="champ"></div>
+    </div>
+
+    <div class="encadre-fup">
+      <div class="titre-carte">📅 Follow-up (FUP)</div>
+      <div class="duo">
+        <div class="q"><label>Date de recontact</label><div class="champ"></div></div>
+        <div class="q"><label>Note FUP <span class="aide">— rappeler le soir…</span></label><div class="champ"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="note-fin">« On ne vend pas une formation, on accompagne un nouveau départ. » ♥</p>
+
+  <div class="pied"><span>♥ Fiche d'appel</span><span>Page 5 / 5</span></div>
+</section>
+
+</body>
+</html>
